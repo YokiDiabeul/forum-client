@@ -1,0 +1,105 @@
+<app-header></app-header>
+<div class="page" *ngIf="post">
+  <div class="container">
+    <div class="main post">
+      <div class="vote">
+        <button class="upvote" (click)="upvote(post.slug)" [ngClass]="{'active': post.voted === 1}"><i class="fa fa-arrow-up"></i></button>
+        <div>{{post.votes}}</div>
+        <button class="downvote" (click)="downvote(post.slug)" [ngClass]="{'active': post.voted === -1}"><i class="fa fa-arrow-down"></i></button>
+      </div>
+      <div class="box">
+        <div class="post-info"><a href="/t/{{post.topic.name}}"><strong>t/{{post.topic.name}}</strong></a> . Posted by <strong>{{post.createdBy}}</strong> the <i>{{post.createdAt}}</i></div>
+        <div class="title">
+          <a [routerLink]="['/p/', post.slug]" href=""><strong>{{post.title}}</strong></a>
+          <div class="tag"><span class="tag-span" *ngFor="let tag of post.tags">{{tag.name}}</span></div>
+        </div>
+        <div [innerHTML]="post.body"></div>
+        <img src="{{img}}">
+        <div class="interact-bar">
+          <div class="item">
+            <a routerLink="./" fragment="comments"><i class="fa fa-comment"></i><strong>{{post.comments.length}}</strong></a>
+          </div>
+          <div class="item">
+            <a [routerLink]="['/p/', post.slug]" href=""><i class="fa fa-share-alt-square"></i><strong>Share</strong></a>
+          </div>
+          <div class="item">
+            <a [routerLink]="['/p/', post.slug]" href=""><i class="fa fa-plus-square"></i><strong>Save</strong></a>
+          </div>
+        </div><!-- /details -->
+
+        <div class="add-comment" *ngIf="me">
+          <span>Comment as <a href="/u/{{me.username}}">{{me.username}}</a></span>
+          <div class="editor comment-editor">
+            <angular-editor id="angular-editor" [(ngModel)]="commentContent" [config]="editorConfig"></angular-editor>
+            <button class="btn btn-primary" (click)="addComment();">Comment</button>
+          </div>
+        </div><!-- /add-comment -->
+
+        <div class="comments" id="comments">
+          <div class="comment" *ngFor="let com of post.comments"> <!-- [ngStyle]="{'margin-left':getMargin(com)}" -->
+            <div class="threadline" style="margin-left: 19px" *ngFor="let i of [].constructor(com.level)">
+              <!-- Bidouillage quand tu nous tiens ! -->
+            </div>
+            <div class="vote">
+              <button class="upvote" (click)="comUpvote(com.id)"  [ngClass]="{'active': com.voted === 1}"><i class="fa fa-arrow-up"></i></button>
+              <div>{{com.votes}}</div>
+              <button class="downvote" (click)="comDownvote(com.id)"  [ngClass]="{'active': com.voted === -1}"><i class="fa fa-arrow-down"></i></button>
+              <div class="threadline"></div>
+            </div>
+            <div class="box">
+              <div><a href="/u/{{com.createdBy}}"><strong>u/{{com.createdBy}}</strong></a> . Posted the <i>{{com.createdAt}}</i></div>
+              <div [innerHTML]="com.text"></div>
+              <div class="interact-bar">
+                <div class="item" *ngIf="me">
+                  <a (click)="toggleContent(com.id);"><i class="fa fa-comment"></i><strong>Reply</strong></a>
+                </div>
+                <div class="item">
+                  <a href=""><i class="fa fa-ban"></i><strong>Report</strong></a>
+                </div>
+                <div class="item">
+                  <a href=""><i class="fa fa-share-alt-square"></i><strong>Share</strong></a>
+                </div>
+                <div class="item">
+                  <a href=""><i class="fa fa-plus-square"></i><strong>Save</strong></a>
+                </div>
+              </div><!-- /details -->
+              <div class="editor comment-editor" id="reply-editor-{{com.id}}" style="display:none">
+                <angular-editor id="angular-editor" [(ngModel)]="replyContent" [config]="editorConfigReply"></angular-editor>
+                <button class="btn btn-primary" (click)="addReply(com.id);">Reply</button>
+              </div>
+            </div>
+          </div> <!-- /comment -->
+        </div> <!-- /comments -->
+
+      </div>
+    </div><!-- /main -->
+
+    <aside>
+      <div class="box topic" *ngIf="post">
+        <div class="title">
+          <img src="https://b.thumbs.redditmedia.com/A1PMZdeXxIcm1n-Ylg0fMqzgSYfuLshqMV8so2iBoUA.png">
+          <a [routerLink]="['/t/', post.topic.name]" href="">t/{{post.topic.name}}</a>
+        </div>
+        <div class="info" *ngIf="post.topic.nbSubs != 0">
+          <p class="nb"><strong>{{post.topic.nbSubs}}</strong></p>
+          <p class="sub"> subscribers</p>
+        </div>
+        <p>This subreddit is devoted to sharing gifs and videos of robots that are useless or just don't do their job quite right.</p>
+        <div class="buttons">
+          <button class="btn btn-primary" *ngIf="post.topic.sub" (click)="unsub(post.topic.id)">Unsubscribe</button>
+          <button class="btn btn-primary" *ngIf="!post.topic.sub" (click)="sub(post.topic.id);">Subscribe</button>
+          <button class="btn btn-primary" [routerLink]="['/create-post']" href="">Create Post</button>
+        </div>
+      </div>
+      <div class="box" *ngIf="modos">
+        <h5>List modos</h5>
+        <div *ngFor="let modo of modos">
+          <a href="/u/{{modo.username}}">u/{{modo.username}}</a>
+        </div>
+      </div>
+      <div class="box">
+        <p>2019 &copy; Your company.</p>
+      </div>
+    </aside>
+  </div>
+</div>

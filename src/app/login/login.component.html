@@ -1,0 +1,49 @@
+<div class="login-page">
+  <div class="container d-flex align-items-center">
+    <div class="form-holder has-shadow">
+      <div class="row">
+        <!-- Logo & Information Panel-->
+        <div class="col-lg-6">
+          <div class="info d-flex align-items-center">
+            <div class="content">
+              <div class="logo">
+                <h1>Dark Admin</h1>
+              </div>
+              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+            </div>
+          </div>
+        </div>
+        <!-- Form Panel -->
+        <div class="col-lg-6 bg-white">
+          <div class="form d-flex align-items-center">
+            <div class="content">
+              <form (ngSubmit)="f.form.valid && login()" #f="ngForm" novalidate class="form-validate">
+                <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !email.valid }">
+                  <label for="email">Email</label>
+                  <input type="email" class="form-control input-material" name="email" id="email"
+                         [(ngModel)]="model.usernameOrEmail"
+                         #email="ngModel"
+                         required data-msg="Please enter your username"/>
+                </div>
+
+                <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !password.valid }">
+                  <label for="password">Password</label>
+                  <input type="password" class="form-control input-material" name="password" id="password"
+                         [(ngModel)]="model.password"
+                         #password="ngModel"
+                         required data-msg="Please enter your password"/>
+                </div>
+                <button id="login" class="btn btn-primary">Login</button>
+              </form><a href="#" class="forgot-pass">Forgot Password?</a><br><small>Do not have an account? </small><a routerLink="/register" href="" class="signup">Signup</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="copyrights text-center">
+    <p>Design by <a href="https://bootstrapious.com" class="external">Bootstrapious</a></p>
+    <!-- Please do not remove the backlink to us unless you support further theme's development at https://bootstrapious.com/donate. It is part of the license conditions. Thank you for understanding :)-->
+  </div>
+</div>
+

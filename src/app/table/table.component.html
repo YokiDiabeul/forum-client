@@ -1,0 +1,40 @@
+<app-header></app-header>
+<div class="page">
+  <div class="container">
+    <div class="main box">
+
+      <ul class="nav nav-pills nav-justified">
+        <li class="nav-item"><a data-toggle="pill" href="#pills-post" class="nav-link active show"><i class="fa fa-comment"></i> Post</a></li>
+        <li class="nav-item"><a data-toggle="pill" href="#pills-image" class="nav-link"><i class="fa fa-image"></i> Image & Video</a></li>
+      </ul><!-- pills-tab -->
+      <div class="tab-content">
+        <div class="post-title">
+          <input type="text" placeholder="Title" class="form-control">
+        </div><!-- post-title -->
+
+        <div id="pills-post"  class="tab-pane fade active show">
+          <div class="editor">
+            <angular-editor id="angular-editor" [(ngModel)]="htmlContent" [config]="editorConfig"></angular-editor>
+          </div>
+        </div>
+        <div id="pills-image" class="tab-pane fade">
+        </div>
+        <div class="tag-save-btn">
+          <button class="btn btn-primary" disabled="">Post</button>
+          <button class="btn btn-secondary" disabled="">Save draft</button>
+          <button class="btn btn-outline-secondary"><i class="fa fa-plus"></i> Action</button>
+        </div><!-- tag-save-btn -->
+      </div><!-- tab-content -->
+    </div><!-- /main -->
+
+    <aside class="sidebar">
+      <div class="box home">
+        <h5>Preview</h5>
+        <div [innerHTML]="htmlContent"></div>
+      </div>
+      <div class="box">
+        <p>2019 &copy; Your company.</p>
+      </div>
+    </aside>
+  </div>
+</div>

@@ -1,0 +1,56 @@
+<app-header></app-header>
+<div class="page" *ngIf="topic">
+  <div class="container">
+    <div class="main" *ngIf="posts">
+      <div class="post" *ngFor="let p of posts">
+        <div class="vote">
+          <button class="upvote" (click)="upvote(p.slug)" [ngClass]="{'active': p.voted === 1}"><i class="fa fa-arrow-up"></i></button>
+          <div>{{p.votes}}</div>
+          <button class="downvote" (click)="downvote(p.slug)" [ngClass]="{'active': p.voted === -1}"><i class="fa fa-arrow-down"></i></button>
+        </div>
+        <div class="box">
+          <div class="post-info">Posted by <strong>{{p.createdBy}}</strong> the <i>{{p.createdAt}}</i></div>
+          <div class="title">
+            <a [routerLink]="['/p/', p.slug]" href=""><strong>{{p.title}}</strong></a>
+            <div class="tag"><span class="tag-span" *ngFor="let tag of p.tags">{{tag.name}}</span></div>
+          </div>
+          <div [innerHTML]="p.body"></div>
+          <img src="{{iu.getImageUrl(300, 700)}}">
+          <div class="interact-bar">
+            <div class="item">
+              <a [routerLink]="['/p/', p.slug]" href=""><i class="fa fa-comment"></i><strong>{{p.comments.length}}</strong></a>
+            </div>
+            <div class="item">
+              <a [routerLink]="['/p/', p.slug]" href=""><i class="fa fa-share-alt-square"></i><strong>Share</strong></a>
+            </div>
+            <div class="item">
+              <a [routerLink]="['/p/', p.slug]" href=""><i class="fa fa-plus-square"></i><strong>Save</strong></a>
+            </div>
+          </div><!-- /details -->
+        </div>
+      </div>
+    </div><!-- /main -->
+
+    <aside>
+      <div class="box topic" *ngIf="topic">
+        <div class="title">
+          <img src="https://b.thumbs.redditmedia.com/A1PMZdeXxIcm1n-Ylg0fMqzgSYfuLshqMV8so2iBoUA.png">
+          <strong>t/{{topic.name}}</strong>
+        </div>
+        <div class="info" *ngIf="topic.nbSubs != 0">
+          <p class="nb"><strong>{{topic.nbSubs}}</strong></p>
+          <p class="sub"> subscribers</p>
+        </div>
+        <p>This subreddit is devoted to sharing gifs and videos of robots that are useless or just don't do their job quite right.</p>
+        <div class="buttons">
+          <button class="btn btn-primary" *ngIf="topic.sub" (click)="unsub(topic.id)">Unsubscribe</button>
+          <button class="btn btn-primary" *ngIf="!topic.sub" (click)="sub(topic.id);">Subscribe</button>
+          <button class="btn btn-primary" [routerLink]="['/create-post']" href="">Create Post</button>
+        </div>
+      </div>
+      <div class="box">
+        <p>2019 &copy; Your company.</p>
+      </div>
+    </aside>
+  </div>
+</div>

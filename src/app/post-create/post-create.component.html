@@ -1,0 +1,60 @@
+<app-header></app-header>
+<div class="page">
+  <div class="container">
+    <div class="main box">
+
+      <ul class="nav nav-pills nav-justified">
+        <li class="nav-item"><a data-toggle="pill" href="#pills-post" class="nav-link active show"><i class="fa fa-comment"></i> Post</a></li>
+        <li class="nav-item"><a data-toggle="pill" href="#pills-image" class="nav-link"><i class="fa fa-image"></i> Image & Video</a></li>
+      </ul><!-- pills-tab -->
+      <div class="tab-content">
+        <div class="post-title">
+          <input id="title" name="title" type="text" placeholder="Title" class="form-control"
+                 [(ngModel)]="model.title" #title="ngModel" >
+        </div><!-- post-title -->
+
+        <div id="pills-post"  class="tab-pane fade active show">
+          <div class="editor">
+            <angular-editor id="angular-editor" [(ngModel)]="model.body" [config]="editorConfig"></angular-editor>
+          </div>
+        </div>
+        <div id="pills-image" class="tab-pane fade">
+          Food truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid. Exercitation +1 labore velit, blog sartorial PBR
+          leggings next level wes anderson artisan four loko farm-to-table craft beer twee. Qui photo booth letterpress, commodo enim craft beer mlkshk
+          aliquip jean shorts ullamco ad vinyl cillum PBR. Homo nostrud organic, assumenda labore aesthetic magna delectus mollit. Keytar helvetica VHS
+          salvia yr, vero magna velit sapiente labore stumptown. Vegan fanny pack odio cillum wes anderson 8-bit, sustainable jean shorts beard ut DIY
+          ethical culpa terry richardson biodiesel. Art party scenester stumptown, tumblr butcher vero sint qui sapiente accusamus tattooed echo park.
+          <br>Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua, retro synth master cleanse. Mustache cliche
+          tempor, williamsburg carles vegan helvetica. Reprehenderit butcher retro keffiyeh dreamcatcher synth. Cosby sweater eu banh mi, qui irure terry
+          richardson ex squid. Aliquip placeat salvia cillum iphone. Seitan aliquip quis cardigan american apparel, butcher voluptate nisi qui.
+        </div>
+        <div class="tag-save-btn">
+          <button class="btn btn-primary" (click)="addPost();">Post</button>
+          <button class="btn btn-secondary">Save draft</button>
+          <div *ngIf="tags?.length > 0">
+            <angular2-multiselect id="multiselect" [data]="tagItems"
+                                  [(ngModel)]="selectedTags"
+                                  [settings]="dropdownSettings"
+                                  name="Tags">
+            </angular2-multiselect>
+          </div>
+          <select *ngIf="topics?.length > 0" id="topics" class="form-control" [ngModel]="selectedTopic" (ngModelChange)="updateTopic($event)" name="topics">
+            <option *ngFor="let topic of topics" value={{topic.id}}>
+              {{ topic.name }}
+            </option>
+          </select>
+        </div><!-- tag-save-btn -->
+      </div><!-- tab-content -->
+    </div><!-- /main -->
+
+    <aside>
+      <div class="box preview">
+        <h5>Preview</h5>
+        <div [innerHTML]="model.body"></div>
+      </div>
+      <div class="box">
+        <p>2019 &copy; Your company.</p>
+      </div>
+    </aside>
+  </div>
+</div>

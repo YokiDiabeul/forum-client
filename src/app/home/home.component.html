@@ -1,0 +1,60 @@
+<app-header></app-header>
+<div class="page">
+  <div class="container">
+    <div class="main" *ngIf="posts">
+      <div class="post" *ngFor="let p of posts">
+        <div class="vote">
+          <button class="upvote" (click)="upvote(p.slug)" [ngClass]="{'active': p.voted === 1}"><i class="fa fa-arrow-up"></i></button>
+          <div>{{p.votes}}</div>
+          <button class="downvote" (click)="downvote(p.slug)" [ngClass]="{'active': p.voted === -1}"><i class="fa fa-arrow-down"></i></button>
+        </div>
+        <div class="box">
+          <div class="post-info"><a href="/t/{{p.topic.name}}"><strong>t/{{p.topic.name}}</strong></a> . Posted by <strong>{{p.createdBy}}</strong> the <i>{{p.createdAt}}</i></div>
+          <div class="title">
+            <a [routerLink]="['/p/', p.slug]" href=""><strong>{{p.title}}</strong></a>
+            <div class="tag"><span class="tag-span" *ngFor="let tag of p.tags">{{tag.name}}</span></div>
+          </div>
+          <div [innerHTML]="p.body"></div>
+          <img src="{{iu.getImageUrl(300, 700)}}">
+          <div class="interact-bar">
+            <div class="item">
+              <a [routerLink]="['/p/', p.slug]" href=""><i class="fa fa-comment"></i><strong>{{p.comments.length}}</strong></a>
+            </div>
+            <div class="item">
+              <a [routerLink]="['/p/', p.slug]" href=""><i class="fa fa-share-alt-square"></i><strong>Share</strong></a>
+            </div>
+            <div class="item">
+              <a [routerLink]="['/p/', p.slug]" href=""><i class="fa fa-plus-square"></i><strong>Save</strong></a>
+            </div>
+          </div><!-- /details -->
+        </div>
+      </div>
+    </div><!-- /main -->
+
+    <aside>
+      <div class="box home">
+        <h5>Home</h5>
+        <p>Your personal frontpage. Come here to check in with your favorite communities.</p>
+        <div class="buttons">
+          <button class="btn btn-primary" [routerLink]="['/create-post']" href="">Create Post</button>
+          <button class="btn btn-secondary" disabled="true" data-toggle="tooltip" title="Cannot create topic with this low karma!">Create Topic</button>
+        </div>
+      </div>
+      <div class="box topics" *ngIf="topics">
+        <h5>Trending topics</h5>
+        <div class="topic" *ngFor="let topic of topics">
+          <img src="https://b.thumbs.redditmedia.com/A1PMZdeXxIcm1n-Ylg0fMqzgSYfuLshqMV8so2iBoUA.png">
+          <div>
+            <a [routerLink]="['/t/', topic.name]" href="">t/{{topic.name}}</a>
+            <p>{{topic.nbSubs}} subscribers</p>
+          </div>
+          <button class="btn btn-primary" *ngIf="topic.sub" (click)="unsub(topic.id)">Unsubscribe</button>
+          <button class="btn btn-primary" *ngIf="!topic.sub" (click)="sub(topic.id);">Subscribe</button>
+        </div>
+      </div>
+      <div class="box">
+        <p>2019 &copy; Your company.</p>
+      </div>
+    </aside>
+  </div>
+</div>

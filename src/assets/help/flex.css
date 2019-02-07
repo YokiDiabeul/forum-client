@@ -1,0 +1,40 @@
+
+#frog {
+  display: flex;
+
+  /* Align verticaly */
+  justify-content: flex-start; /*Les éléments s'alignent au côté gauche du conteneur.*/
+  justify-content: flex-end; /*Les éléments s'alignent au côté droit du conteneur.*/
+  justify-content: center; /*Les éléments s'alignent au centre du conteneur.*/
+  justify-content: space-between; /*Les éléments s'affichent avec un espace égal entre eux.*/
+  justify-content: space-around; /*Les éléments s'affichent avec un espacement égal à l'entour d'eux.*/
+
+  /* Align horizontaly */
+  align-items: flex-start; /*Les éléments s'alignent au haut du conteneur.*/
+  align-items: flex-end; /*Les éléments s'alignent au bas du conteneur.*/
+  align-items: center; /*Les éléments s'alignent au centre vertical du conteneur.*/
+  align-items: baseline; /*Les éléments s'alignent à la ligne de base du conteneur.*/
+  align-items: stretch; /*Les éléments sont étirés pour s'adapter au conteneur.*/
+
+  /* Direction items in the container */
+  flex-direction: row; /*Les éléments sont disposés dans la même direction que le texte.*/
+  flex-direction: row-reverse; /*Les éléments sont disposés dans la direction opposée au texte.*/
+  flex-direction: column; /*Les éléments sont disposés de haut en bas.*/
+  flex-direction: column-reverse; /*Les éléments sont disposés de bas en haut.*/
+
+  /* Elements multi lines */
+  flex-wrap: nowrap; /*Tous les éléments sont tenus sur une seule ligne.*/
+  flex-wrap: wrap; /*Les éléments s'enveloppent sur plusieurs lignes au besoin.*/
+  flex-wrap: wrap-reverse; /*Les éléments s'enveloppent sur plusieurs lignes dans l'ordre inversé.*/
+
+  /* flex-direction & flex-wrap */
+  flex-flow: row nowrap;
+
+  /* Align lines */
+  align-content: flex-start; /*Les lignes sont amassées dans le haut du conteneur.*/
+  align-content: flex-end; /*Les lignes sont amassées dans le bas du conteneur.*/
+  align-content: center; /*Les lignes sont amassées dans le centre vertical du conteneur.*/
+  align-content: space-between; /*Les lignes s'affichent avec un espace égal entre eux.*/
+  align-content: space-around; /*Les lignes s'affichent avec un espace égal autour d'eux.*/
+  align-content: stretch; /*Les lignes sont étirées pour s'adapter au conteneur.*/
+}
