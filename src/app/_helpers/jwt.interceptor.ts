@@ -14,7 +14,8 @@ export class JwtInterceptor implements HttpInterceptor {
           'Authorization': `Bearer ${currentUser.accessToken}`,
           'Content-Type' : 'application/json; charset=utf-8',
           'Accept'       : 'application/json',
-          'Access-Control-Allow-Origin': '*'
+          'Access-Control-Allow-Origin': 'http://51.38.239.141:8080',
+          'Access-Control-Allow-Headers': '*'
         }
       });
     }
