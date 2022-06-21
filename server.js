@@ -8,7 +8,6 @@ const app = express();
 app.use(express.static(__dirname + '/dist/forum-client'));
 
 app.get('/*', function(req,res) {
-
   res.sendFile(path.join(__dirname+'/dist/forum-client/index.html'));
 });
 

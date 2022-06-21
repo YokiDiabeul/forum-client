@@ -1,13 +1,11 @@
-import {HttpClient} from '@angular/common/http';
-import {Injectable} from '@angular/core';
-import {url} from '../_const/DataSource';
-import {Post} from '../_dto/model/Post';
-import {Comment} from '../_dto/model/Comment';
+import { HttpClient } from "@angular/common/http";
+import { Injectable } from "@angular/core";
+import { url } from "../_const/DataSource";
+import { Comment } from "../_dto/model/Comment";
 
-@Injectable({ providedIn: 'root' })
+@Injectable({ providedIn: "root" })
 export class CommentService {
-
-  private url: string  = url + '/comments';
+  private url: string = url + "/comments";
 
   constructor(private http: HttpClient) {}
 

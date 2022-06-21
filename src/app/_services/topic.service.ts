@@ -1,14 +1,13 @@
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { url } from '../_const/DataSource';
-import { Topic } from '../_dto/model/Topic';
-import {User} from '../_dto/model/User';
-import {Post} from '../_dto/model/Post';
+import { Injectable } from "@angular/core";
+import { HttpClient } from "@angular/common/http";
+import { url } from "../_const/DataSource";
+import { Topic } from "../_dto/model/Topic";
+import { User } from "../_dto/model/User";
+import { Post } from "../_dto/model/Post";
 
-@Injectable({ providedIn: 'root' })
+@Injectable({ providedIn: "root" })
 export class TopicService {
-
-  private url: string = url + '/topics';
+  private url: string = url + "/topics";
 
   constructor(private http: HttpClient) {}
 
@@ -23,7 +22,6 @@ export class TopicService {
   getTopicByName(name: string) {
     return this.http.get<Topic>(this.url + `/${name}/n`);
   }
-
 
   getTopicPosts(id: number) {
     return this.http.get<Post[]>(this.url + `/${id}/posts`);

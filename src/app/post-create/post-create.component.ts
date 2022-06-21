@@ -1,12 +1,12 @@
-import {Component, OnInit} from '@angular/core';
-import {PostService} from '../_services/post.service';
-import {AngularEditorConfig} from '@kolkov/angular-editor';
-import {TopicService} from '../_services/topic.service';
-import {Topic} from '../_dto/model/Topic';
-import {Post} from '../_dto/model/Post';
-import {MyToastService} from '../_services/toast.service';
-import {TagService} from '../_services/tag.service';
-import {Tag} from '../_dto/model/Tag';
+import { Component, OnInit } from "@angular/core";
+import { PostService } from "../_services/post.service";
+import { AngularEditorConfig } from "@kolkov/angular-editor";
+import { TopicService } from "../_services/topic.service";
+import { Topic } from "../_dto/model/Topic";
+import { Post } from "../_dto/model/Post";
+import { MyToastService } from "../_services/toast.service";
+import { TagService } from "../_services/tag.service";
+import { Tag } from "../_dto/model/Tag";
 
 export class Item {
   id: number;
@@ -15,43 +15,43 @@ export class Item {
 }
 
 @Component({
-  templateUrl: 'post-create.component.html',
-  styleUrls: ['post-create.component.scss']
+  templateUrl: "post-create.component.html",
+  styleUrls: ["post-create.component.scss"],
 })
 export class PostCreateComponent implements OnInit {
-
   editorConfig: AngularEditorConfig = {
     editable: true,
     spellcheck: false,
-    height: '25rem',
-    minHeight: '5rem',
-    placeholder: 'Enter text here...',
-    translate: 'no',
+    height: "25rem",
+    minHeight: "5rem",
+    placeholder: "Enter text here...",
+    translate: "no",
     // uploadUrl: 'v1/images', // if needed
-    customClasses: [ // optional
+    customClasses: [
+      // optional
       {
-        name: 'quote',
-        class: 'quote',
+        name: "quote",
+        class: "quote",
       },
       {
-        name: 'redText',
-        class: 'redText'
+        name: "redText",
+        class: "redText",
       },
       {
-        name: 'titleText',
-        class: 'titleText',
-        tag: 'h1',
+        name: "titleText",
+        class: "titleText",
+        tag: "h1",
       },
-    ]
+    ],
   };
 
   dropdownSettings = {
     singleSelection: false,
-    text: 'select the tags',
-    selectAllText: 'Select all',
-    unSelectAllText: 'Select none',
+    text: "select the tags",
+    selectAllText: "Select all",
+    unSelectAllText: "Select none",
     enableSearchFilter: false,
-    classes: ''
+    classes: "",
   };
 
   model = new Post();
@@ -62,10 +62,12 @@ export class PostCreateComponent implements OnInit {
   tagItems: Item[] = [];
   selectedTags: Item[] = [];
 
-  constructor(private postService: PostService,
-              private topicService: TopicService,
-              private tagService: TagService,
-              private toast: MyToastService) {}
+  constructor(
+    private postService: PostService,
+    private topicService: TopicService,
+    private tagService: TagService,
+    private toast: MyToastService
+  ) {}
 
   ngOnInit() {
     this.getTopics();
@@ -73,21 +75,19 @@ export class PostCreateComponent implements OnInit {
   }
 
   getTopics() {
-    this.topicService.getTopics().subscribe(
-      topics => this.topics = topics
-    );
+    this.topicService.getTopics().subscribe((topics) => (this.topics = topics));
   }
 
   getTags() {
-    this.tagService.getPosts().subscribe(
-      tags => this.tags = tags,
-      error => this.toast.errorMsg(error, 'Get Tags'),
-      () => this.tagItems = this.tags.map(t => this.toItem(t))
+    this.tagService.getTags().subscribe(
+      (tags) => (this.tags = tags),
+      (error) => this.toast.errorMsg(error, "Get Tags"),
+      () => (this.tagItems = this.tags.map((t) => this.toItem(t)))
     );
   }
 
   addPost() {
-    if (this.model.body === undefined || this.model.body === '') {
+    if (this.model.body === undefined || this.model.body === "") {
       return;
     }
 
@@ -95,13 +95,13 @@ export class PostCreateComponent implements OnInit {
     top.id = this.selectedTopic;
 
     this.model.topic = top;
-    this.model.tags = this.selectedTags.map(item => item.tag);
+    this.model.tags = this.selectedTags.map((item) => item.tag);
 
     console.log(this.model);
 
     this.postService.addPost(this.model).subscribe(
-      response => this.toast.successMsg(response.message, 'Success'),
-      error => this.toast.errorMsg(error, 'Add Article')
+      (response) => this.toast.successMsg(response.message, "Success"),
+      (error) => this.toast.errorMsg(error, "Add Article")
     );
   }
 
