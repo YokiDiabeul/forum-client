@@ -3,12 +3,12 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "node server.js",
+    "start": "ng serve --host 0.0.0.0",
     "build": "ng build",
+    "prod": "ng build --prod",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e",
-    "postinstall": "ng build --prod"
+    "e2e": "ng e2e"
   },
   "engines": {
     "node": "8.9.4",

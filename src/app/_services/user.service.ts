@@ -1,13 +1,12 @@
-import {Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
-import {User} from '../_dto/model/User';
-import {url} from '../_const/DataSource';
-import {Trophy} from '../_dto/model/Trophy';
+import { Injectable } from "@angular/core";
+import { HttpClient } from "@angular/common/http";
+import { User } from "../_dto/model/User";
+import { Trophy } from "../_dto/model/Trophy";
+import { environment } from "./../../environments/environment";
 
-@Injectable({ providedIn: 'root' })
+@Injectable({ providedIn: "root" })
 export class UserService {
-
-  private url: string  = url + '/users';
+  private url: string = environment.apiUrl + "/users";
 
   constructor(private http: HttpClient) {}
 
@@ -34,5 +33,4 @@ export class UserService {
   addTrophy(username: string, trophy: Trophy) {
     return this.http.post<any>(this.url + `/${username}/trophies`, trophy);
   }
-
 }

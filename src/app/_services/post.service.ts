@@ -1,13 +1,12 @@
-import {HttpClient} from '@angular/common/http';
-import {Injectable} from '@angular/core';
-import {url} from '../_const/DataSource';
-import {Post} from '../_dto/model/Post';
-import {Comment} from '../_dto/model/Comment';
+import { HttpClient } from "@angular/common/http";
+import { Injectable } from "@angular/core";
+import { Post } from "../_dto/model/Post";
+import { Comment } from "../_dto/model/Comment";
+import { environment } from "./../../environments/environment";
 
-@Injectable({ providedIn: 'root' })
+@Injectable({ providedIn: "root" })
 export class PostService {
-
-  private url: string  = url + '/posts';
+  private url: string = environment.apiUrl + "/posts";
 
   constructor(private http: HttpClient) {}
 
